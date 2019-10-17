@@ -97,11 +97,6 @@ input()
 for i in range(100, 19, -5):
 	print(i)
 input()
-
-
-
-
-
 #Zadanie 13
 lista_slownikow=[
 	]
