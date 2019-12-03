@@ -1,6 +1,6 @@
 from django.contrib import admin
 
 # Register your models here.
-# from .models import seans
+from .models import Seans
 
-# admin.site.register(seans)
+admin.site.register(Seans)
