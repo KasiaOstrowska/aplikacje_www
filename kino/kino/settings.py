@@ -80,10 +80,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ostrowskak',
-        'USER': 'ostrowskak',
-        'PASSWORD': 'katarzyna',
-        'HOST': 'bad.uwm.edu.pl',
-        'PORT':'3306',
+
     }
 }
 
