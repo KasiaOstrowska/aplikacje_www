@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Kino, Uzytkownik
+from .models import *
 class KinoSerializer(serializers.ModelSerializer):
     
     class Meta:
@@ -7,38 +7,9 @@ class KinoSerializer(serializers.ModelSerializer):
         fields ='__all__'
 
 class FilmPostSerializer(serializers.ModelSerializer):
-    
     class Meta:
-        model = Kino
+        model = Film
         fields ='__all__'
-
-    # def validate_tytul(self,value):
-    #     if 'django' not in value.lower():
-    #         raise serializers.ValidationError(
-    #             "Błędny tytuł",
-    #     )
-    #     return value
-
-    # def validate_rezyser(self,value):
-    #     if 'django' not in value.lower():
-    #         raise serializers.ValidationError(
-    #             "Błedny reżyser",
-    #     )
-    #     return value
-
-    # def validate_czas(self,value):
-    #     if 'django' not in value.lower():
-    #         raise serializers.ValidationError(
-    #             "Błędny czas",
-    #     )
-    #     return value
-
-    # def validate_dataPremierts(self,value):
-    #     if 'django' not in value.lower():
-    #         raise serializers.ValidationError(
-    #             "Błędna data",
-    #     )
-    #     return value
 
 class SeansPostSerializer(serializers.Serializer):
     dataSeansu=serializers.DateTimeField()
@@ -58,34 +29,21 @@ class SeansPostSerializer(serializers.Serializer):
         )
         return value
 
-class SalaPostSerializer(serializers.Serializer):
-    iloscMiejsc=serializers.IntegerField()
-    numerSal=serializers.IntegerField()
-
-    def validate_iloscMiejsc(self,value):
-        if 'django' not in value.lower():
-            raise serializers.ValidationError(
-                "Ilość miejsc musi być liczbą",
-        )
-        return value
-
-    def validate_numerSal(self,value):
-        if 'django' not in value.lower():
-            raise serializers.ValidationError(
-                "Błędny numer sali",
-        )
-        return value
+class SalaPostSerializer(serializers.ModelSerializer):
+   class Meta:
+        model = Sala
+        fields = '__all__'
 
 class MiejscePostSerializer(serializers.ModelSerializer):
-    
     class Meta:
-        model = Kino
+        model = Miejsce
         fields ='__all__'   
 
-class BiletPostSerializer(serializers.Serializer):
-    cenaJednostkowa=serializers.FloatField()
-    rodzajBiletu=serializers.CharField(max_length=30)
-
+class BiletPostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Bilet
+        fields=('cenaJednostkowa', 'rodzajBiletu', 'idSeans', 'idMiejsca')
+    
     def validate_cenaJednostkowa(self,value):
         if 'django' not in value.lower():
             raise serializers.ValidationError(
@@ -100,15 +58,15 @@ class BiletPostSerializer(serializers.Serializer):
         )
         return value    
 
-class ZamowieniePostSerializer(serializers.Serializer):
-    cenaSprzedarzy=serializers.FloatField()
-    dataZamowienia=serializers.DateField()
-    status=serializers.CharField(max_length=20)
+class ZamowieniePostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Zamowienie
+        fields ='__all__' 
 
     def validate_cenaSprzedarzy(self,value):
         if 'django' not in value.lower():
             raise serializers.ValidationError(
-                "Błedny reżyser",
+                "Błedna cena",
         )
         return value
 
