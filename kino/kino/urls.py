@@ -15,9 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from rest_framework.urlpatterns import format_suffix_patterns
 from kinoCRUD import views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('kino/', views.KinoList.as_view()),
     path('',views.home_view, name='home')
 ]
