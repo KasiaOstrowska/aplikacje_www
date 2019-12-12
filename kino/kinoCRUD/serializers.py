@@ -63,26 +63,26 @@ class ZamowieniePostSerializer(serializers.ModelSerializer):
         model = Zamowienie
         fields ='__all__' 
 
-    def validate_cenaSprzedarzy(self,value):
-        if 'django' not in value.lower():
-            raise serializers.ValidationError(
-                "Błedna cena",
-        )
-        return value
+    # def validate_cenaSprzedarzy(self,value):
+    #     if 'django' not in value.lower():
+    #         raise serializers.ValidationError(
+    #             "Błedna cena",
+    #     )
+    #     return value
 
-    def validate_dataZamowienia(self,value):
-        if 'django' not in value.lower():
-            raise serializers.ValidationError(
-                "Błędny czas",
-        )
-        return value
+    # def validate_dataZamowienia(self,data):
+    #     if data['dataZamowienia'] > data['now']:
+    #         raise serializers.ValidationError(
+    #             "Błędny czas",
+    #     )
+    #     return value
 
-    def validate_status(self,value):
-        if 'django' not in value.lower():
-            raise serializers.ValidationError(
-                "Błędna data",
-        )
-        return value
+    # def validate_status(self,value):
+    #     if 'django' not in value.lower():
+    #         raise serializers.ValidationError(
+    #             "Błędna data",
+    #     )
+    #     return value
 
 class UzytkownikPostSerializer(serializers.ModelSerializer):
     
@@ -90,43 +90,36 @@ class UzytkownikPostSerializer(serializers.ModelSerializer):
         model = Uzytkownik
         fields ='__all__'
 
-    # def validate_email(self,value):
-    #     if 'django' not in value.lower():
-    #         raise serializers.ValidationError(
-    #             "Błedny e-mail",
-    #     )
-    #     return value
+    # # def validate_email(self,value):
+    # #     if 'django' not in value.lower():
+    # #         raise serializers.ValidationError(
+    # #             "Błedny e-mail",
+    # #     )
+    # #     return value
 
-    # def validate_haslo(self,value):
-    #     if 'django' not in value.lower():
-    #         raise serializers.ValidationError(
-    #             "Błędne hasło",
-    #     )
-    #     return value
+    # # def validate_haslo(self,value):
+    # #     if 'django' not in value.lower():
+    # #         raise serializers.ValidationError(
+    # #             "Błędne hasło",
+    # #     )
+    # #     return value
 
     # def validate_uprawnienia(self,value):
-    #     if 'django' not in value.lower():
+    #     if 'django' not in ("Klient", "Admin"):
     #         raise serializers.ValidationError(
     #             "Błędne uprawnienia",
     #     )
     #     return value
-    # def validate_imie(self,value):
-    #     if 'django' not in value.lower():
-    #         raise serializers.ValidationError(
-    #             "Błedne imie",
-    #     )
-    #     return value
+    # # def validate_imie(self,value):
+    # #     if 'django' not in value.lower():
+    # #         raise serializers.ValidationError(
+    # #             "Błedne imie",
+    # #     )
+    # #     return value
 
     # def validate_nazwisko(self,value):
-    #     if 'django' not in value.lower():
+    #     if 'django' not in ("Klient", "Admin"):
     #         raise serializers.ValidationError(
     #             "Błędne nazwisko",
-    #     )
-    #     return value
-
-    # def validate_stanowisko(self,value):
-    #     if 'django' not in value.lower():
-    #         raise serializers.ValidationError(
-    #             "Błędne stanowisko",
     #     )
     #     return value

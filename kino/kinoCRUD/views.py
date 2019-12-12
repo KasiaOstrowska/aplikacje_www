@@ -43,11 +43,6 @@ class KinoDetail(APIView):
         except Kino.DoesNotExist:
             raise Http404
 
-    def get(self, request, pk, format=None):
-        Kino = self.get_object(pk)
-        serializer = KinoSerializer(Kino)
-        return Response(serializer.data)
-
     def put(self, request, pk, format=None):
         Kino = self.get_object(pk)
         serializer = KinoSerializer(Kino, data=request.data)
@@ -85,11 +80,6 @@ class SeansDetail(APIView):
             return Seans.objects.get(pk=pk)
         except Seans.DoesNotExist:
             raise Http404
-
-    def get(self, request, pk, format=None):
-        Seans = self.get_object(pk)
-        serializer = SeansPostSerializer(Seans)
-        return Response(serializer.data)
 
     def put(self, request, pk, format=None):
         Seans = self.get_object(pk)
@@ -129,11 +119,6 @@ class FilmDetail(APIView):
         except Film.DoesNotExist:
             raise Http404
 
-    def get(self, request, pk, format=None):
-        Film = self.get_object(pk)
-        serializer = FilmPostSerializer(Film)
-        return Response(serializer.data)
-
     def put(self, request, pk, format=None):
         Film = self.get_object(pk)
         serializer = FilmPostSerializer(Film, data=request.data)
@@ -172,11 +157,6 @@ class MiejsceDetail(APIView):
         except Miejsce.DoesNotExist:
             raise Http404
 
-    def get(self, request, pk, format=None):
-        Miejsce = self.get_object(pk)
-        serializer = MiejscePostSerializer(Miejsce)
-        return Response(serializer.data)
-
     def put(self, request, pk, format=None):
         Miejsce = self.get_object(pk)
         serializer = MiejscePostSerializer(Miejsce, data=request.data)
@@ -204,27 +184,15 @@ class SalaList(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    
 
 class SalaDetail(APIView):
     permission_classes = [IsAdminUser|ReadOnly]  # Ustawianie klas zezwolen
-
-    # def miejsce(self, request):
-    #     qs = self.get_object.all()
-    #     # serializer = MiejscePostSerializer(qs, many=True)
-    #     return Response(serializer.data)
 
     def get_object(self, pk):
         try:
             return Sala.objects.get(pk=pk)
         except Sala.DoesNotExist:
             raise Http404
-
-    def get(self, request, pk, format=None):
-        Sala = self.get_object(pk)
-        serializer = SalaPostSerializer(Sala)
-        return Response(serializer.data)
 
     def put(self, request, pk, format=None):
         Sala = self.get_object(pk)
@@ -263,11 +231,6 @@ class BiletDetail(APIView):
         except Bilet.DoesNotExist:
             raise Http404
 
-    def get(self, request, pk, format=None):
-        Bilet = self.get_object(pk)
-        serializer = BiletPostSerializer(Bilet)
-        return Response(serializer.data)
-
     def put(self, request, pk, format=None):
         Bilet = self.get_object(pk)
         serializer = BiletPostSerializer(Bilet, data=request.data)
@@ -305,11 +268,6 @@ class ZamowienieDetail(APIView):
         except Zamowienie.DoesNotExist:
             raise Http404
 
-    def get(self, request, pk, format=None):
-        Zamowienie = self.get_object(pk)
-        serializer = ZamowieniePostSerializer(Zamowienie)
-        return Response(serializer.data)
-
     def put(self, request, pk, format=None):
         Zamowienie = self.get_object(pk)
         serializer = ZamowieniePostSerializer(Zamowienie, data=request.data)
@@ -323,3 +281,40 @@ class ZamowienieDetail(APIView):
         Zamowienie.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+class UzytkownikList(APIView):
+    permission_classes = [IsAdminUser|ReadOnly]  # Ustawianie klas zezwolen
+
+    def get(self, request):
+        uzytkownik = Uzytkownik.objects.all()
+        serializer=UzytkownikPostSerializer(uzytkownik, many= True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer= UzytkownikPostSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class UzytkownikDetail(APIView):
+
+    permission_classes = [IsAdminUser|ReadOnly]  # Ustawianie klas zezwolen
+
+    def get_object(self, pk):
+        try:
+            return Uzytkownik.objects.get(pk=pk)
+        except Uzytkownik.DoesNotExist:
+            raise Http404
+
+    def put(self, request, pk, format=None):
+        Uzytkownik = self.get_object(pk)
+        serializer = UzytkownikPostSerializer(Uzytkownik, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        Uzytkownik = self.get_object(pk)
+        Uzytkownik.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
